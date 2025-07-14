@@ -13,8 +13,11 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('/store/create', [StoreController::class, 'create'])->name('store.create');
-Route::post('/store', [StoreController::class, 'store'])->name('store.store');
+// Route::middleware(['auth'])->group(function () {
+    Route::get('/stores/create', [StoreController::class, 'create'])->name('stores.create');
+    Route::post('/stores', [StoreController::class, 'store'])->name('stores.store');
+// });
+
 
 
 require __DIR__ . '/auth.php';

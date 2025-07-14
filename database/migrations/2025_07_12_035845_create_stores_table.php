@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('logo_url')->nullable();
             $table->string('qr_identifier')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

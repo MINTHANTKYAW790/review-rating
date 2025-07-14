@@ -3,55 +3,60 @@
 @section('title', 'Create Store Profile')
 
 @section('content_header')
-    <h1>Create Store Profile</h1>
+<h1>Create Store Profile</h1>
 @stop
 
 @section('content')
-<form action="{{ route('store.store') }}" method="POST" enctype="multipart/form-data" class="p-4 bg-white rounded shadow-sm">
+<form method="POST" action="{{ route('stores.store') }}" enctype="multipart/form-data" class="space-y-6">
     @csrf
 
-    <!-- Basic Information -->
-    <h5 class="mb-3 font-weight-bold">Basic Information</h5>
-    <div class="form-row mb-3">
-        <div class="col-md-6">
-            <label for="name">Store Name</label>
-            <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+    <div class="bg-white p-6 shadow rounded">
+        <h2 class="text-lg font-medium mb-4">Basic Information</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="name" class="block text-sm font-medium">Store Name</label>
+                <input type="text" name="name" id="name" required class="w-full border rounded p-2" />
+            </div>
+
+            <div>
+                <label for="phone" class="block text-sm font-medium">Contact Phone</label>
+                <input type="text" name="phone" id="phone" class="w-full border rounded p-2" />
+            </div>
         </div>
-        <div class="col-md-6">
-            <label for="phone">Contact Phone</label>
-            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
+
+        <div class="mt-4">
+            <label for="email" class="block text-sm font-medium">Contact Email</label>
+            <input type="email" name="email" id="email" class="w-full border rounded p-2" />
+        </div>
+
+        <div class="mt-4">
+            <label for="address" class="block text-sm font-medium">Address</label>
+            <textarea name="address" id="address" class="w-full border rounded p-2"></textarea>
         </div>
     </div>
 
-    <div class="form-group mb-3">
-        <label for="email">Contact Email</label>
-        <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-    </div>
+    <div class="bg-white p-6 shadow rounded">
+        <h2 class="text-lg font-medium mb-4">Store Description</h2>
 
-    <div class="form-group mb-4">
-        <label for="address">Address</label>
-        <textarea class="form-control" name="address" rows="2">{{ old('address') }}</textarea>
-    </div>
-
-    <!-- Store Logo -->
-    <h5 class="mb-3 font-weight-bold">Store Logo/Banner</h5>
-    <div class="form-group mb-4">
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" name="logo" accept="image/*">
-            <label class="custom-file-label" for="logo">Click to upload or drag and drop</label>
+        <div>
+            <label for="description" class="block text-sm font-medium">Description</label>
+            <textarea name="description" id="description" class="w-full border rounded p-2"></textarea>
         </div>
-        <small class="form-text text-muted">PNG, JPG, GIF up to 10MB</small>
     </div>
 
-    <button type="submit" class="btn btn-success">Create Store</button>
+    <div class="bg-white p-6 shadow rounded">
+        <h2 class="text-lg font-medium mb-4">Store Logo/Banner</h2>
+
+        <div>
+            <input type="file" name="logo" accept="image/*" class="border p-4 w-full rounded" />
+            <p class="text-sm text-gray-500 mt-2">PNG, JPG, or GIF up to 10MB</p>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded">Save Store</button>
+    </div>
 </form>
-@stop
 
-@section('js')
-<script>
-    // Show selected file name
-    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
-        e.target.nextElementSibling.innerText = e.target.files[0].name;
-    });
-</script>
 @stop
