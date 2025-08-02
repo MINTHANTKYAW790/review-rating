@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Store extends Model
 {
@@ -19,8 +20,20 @@ class Store extends Model
         'qr_identifier',
     ];
 
-    public function owner()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    protected static function booted()
+    {
+        static::saving(function ($store) {
+            $store->slug = Str::slug($store->name);
+        });
+    }
+
+    public function staff()
+    {
+        return $this->hasMany(Staff::class);
     }
 }

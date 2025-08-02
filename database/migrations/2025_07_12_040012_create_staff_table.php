@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image_url')->nullable();
             $table->string('role')->nullable();
+            $table->float('rating', 2, 1)->default(0);
             $table->timestamps();
         });
     }
