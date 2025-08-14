@@ -21,6 +21,16 @@
             <h5>Staff Management</h5>
             <small class="text-muted" style="font-size: 12px;">Manage your team members and their information</small>
         </div>
+        @elseif (request()->routeIs('public*'))
+        <div class="d-flex flex-column align-items-start">
+            <h5>QR Code Generator</h5>
+            <small class="text-muted" style="font-size: 12px;">Generate QR codes for customer reviews</small>
+        </div>
+        @elseif (request()->routeIs('review*'))
+        <div class="d-flex flex-column align-items-start">
+            <h5>Reviews & Ratings Management </h5>
+            <small class="text-muted" style="font-size: 12px;">Manage customer reviews and ratings  </small>
+        </div>
         @endif
         <li class="nav-item">
             @if (auth('web')->check())

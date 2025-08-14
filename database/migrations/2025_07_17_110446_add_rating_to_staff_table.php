@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->integer('rating_store')->nullable(); // required for store
-            $table->integer('rating_staff')->nullable(); // only if reviewing staff
-            $table->text('comment_staff')->nullable();
+        Schema::table('staff', function (Blueprint $table) {
+            $table->text('rating')->nullable();
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reviews', function (Blueprint $table) {
+        Schema::table('staff', function (Blueprint $table) {
             //
         });
     }

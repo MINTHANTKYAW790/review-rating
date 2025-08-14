@@ -98,7 +98,7 @@ class StoreController extends Controller
             return back()->with('error', 'No store found.');
         }
         info("yes exists");
-        $url = url("/" . $store->slug); // example: http://127.0.0.1:8000/cosmeticstore
+        $url = url("/qr/" . $store->slug); // example: http://127.0.0.1:8000/cosmeticstore
 
         return view('qr.index', [
             'qrUrl' => $url,
@@ -107,6 +107,7 @@ class StoreController extends Controller
 
     public function showStore($slug)
     {
+        info("showStore called with slug: " . $slug);
         $store = Store::where('slug', $slug)->firstOrFail();
 
         return view('public.review', compact('store'));
@@ -125,6 +126,11 @@ class StoreController extends Controller
             'rating_staff' => 'nullable|integer|min:1|max:5',
             'comment_staff' => 'nullable|string',
         ]);
+
+        info("validated data: " . json_encode($validated));
+        info($validated['rating_store']);
+        info($validated['rating_staff']);
+
 
         Review::create([
             'store_id' => $store->id,

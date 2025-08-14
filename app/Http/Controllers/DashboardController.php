@@ -10,11 +10,24 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard1', [
-            'storeRating' => Review::avg('rating'), // Assuming 1-5 scale
-            'totalReviews' => Review::count(),
-            'newReviews' => Review::where('created_at', '>=', now()->subWeek())->count(),
-            'topStaff' => Staff::withAvg('reviews', 'rating')->orderByDesc('reviews_avg_rating')->first(),
+        $store = auth('web')->user()->store;
+
+        $totalReviews = $store->reviews()->count();
+        $lastWeekCount = $store->reviews()->where('created_at', '>=', now()->subWeek())->count();
+        $prevWeekCount = $store->reviews()->whereBetween('created_at', [now()->subWeeks(2), now()->subWeek()])->count();
+
+        $averageRating = $store->reviews()->avg('rating_store');
+        $reviewGrowth = $prevWeekCount > 0 ? number_format(($lastWeekCount - $prevWeekCount) / $prevWeekCount * 100, 2) : 100;
+
+        $topStaff = $store->staff()->orderByDesc('rating')->first();
+
+        return view('dashboard', [
+            'store' => $store->setAttribute('average_rating', number_format($averageRating, 1)),
+            'totalReviews' => $totalReviews,
+            'newReviewsThisWeek' => $lastWeekCount,
+            'newReviewIncrease' => $lastWeekCount - $prevWeekCount,
+            'reviewGrowth' => $reviewGrowth,
+            'topStaff' => $topStaff,
         ]);
     }
 }

@@ -21,16 +21,16 @@
             </div>
         </div>
         <nav class="mt-2">
-            <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('store.create') }}" class="nav-link @if (Request::is('store*')) active @endif">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('dashboard') }}" class="nav-link @if (Request::is('dashboard*')) active @endif">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-            </ul> -->
+            </ul>
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ route('store.index') }}" class="nav-link @if (Request::is('store*')) active @endif">
@@ -63,16 +63,17 @@
                 </li>
             </ul>
             
-            <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{ route('store.create') }}" class="nav-link @if (Request::is('store*')) active @endif">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('review.index') }}" class="nav-link @if (Request::is('review*')) active @endif">
+                        <i class="far fa-star nav-icon"></i>
                         <p>
                             Reviews & Ratings
                         </p>
                     </a>
                 </li>
             </ul>
+            <!-- 
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}" class="nav-link">
