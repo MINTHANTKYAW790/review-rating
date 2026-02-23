@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') | MoblileArena Admin</title>
+    <title>@yield('title') Review Me</title>
     <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.scss', 'resources/js/app.js', 'resources/css/theme.css', 'resources/js/theme-switcher.js'])
     @stack('style')
 </head>
 

@@ -13,30 +13,44 @@
     <ul class="navbar-nav ml-auto w-100 d-flex flex-row align-items-center justify-content-between">
         @if (request()->routeIs('store*'))
         <div class="d-flex flex-column align-items-start">
-            <h5>Store Profile Management</h5>
-            <small class="text-muted" style="font-size: 12px;">Update your store information and settings</small>
+            <h5>{{ __('messages.store_profile_management') }}</h5>
+            <small class="text-muted" style="font-size: 12px;">{{ __('messages.update_store_info_settings') }}</small>
         </div>
         @elseif (request()->routeIs('staff*'))
         <div class="d-flex flex-column align-items-start">
-            <h5>Staff Management</h5>
-            <small class="text-muted" style="font-size: 12px;">Manage your team members and their information</small>
+            <h5>{{ __('messages.staff_management') }}</h5>
+            <small class="text-muted" style="font-size: 12px;">{{ __('messages.manage_team_info') }}</small>
         </div>
         @elseif (request()->routeIs('public*'))
         <div class="d-flex flex-column align-items-start">
-            <h5>QR Code Generator</h5>
-            <small class="text-muted" style="font-size: 12px;">Generate QR codes for customer reviews</small>
+            <h5>{{ __('messages.qr_code_generator') }}</h5>
+            <small class="text-muted" style="font-size: 12px;">{{ __('messages.generate_qr_customer_reviews') }}</small>
         </div>
         @elseif (request()->routeIs('review*'))
         <div class="d-flex flex-column align-items-start">
-            <h5>Reviews & Ratings Management </h5>
-            <small class="text-muted" style="font-size: 12px;">Manage customer reviews and ratings  </small>
+            <h5>{{ __('messages.reviews_ratings_management') }} </h5>
+            <small class="text-muted" style="font-size: 12px;">{{ __('messages.manage_customer_reviews_ratings') }}  </small>
         </div>
         @endif
-        <li class="nav-item">
+        <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-globe"></i> {{ strtoupper(app()->getLocale()) }}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="languageDropdown">
+        <a class="dropdown-item" href="{{ route('language.switch', 'en') }}">{{ __('messages.english') }}</a>
+        <a class="dropdown-item" href="{{ route('language.switch', 'my') }}">{{ __('messages.burmese') }}</a>
+    </div>
+</li>
+<li class="nav-item">
+    <button id="theme-toggle" class="btn btn-link nav-link">
+        <i class="fas fa-moon"></i>
+    </button>
+</li>
+        <li class="nav-item d-flex align-items-center">
             @if (auth('web')->check())
-            <i class="fas fa-user-circle"></i> {{ auth('web')->user()->name }}
+                <i class="fas fa-user-circle me-1"></i> {{ auth('web')->user()->name }}
             @else
-            <i class="fas fa-user-circle"></i> Guest
+                <i class="fas fa-user-circle"></i> {{ __('messages.guest') }}
             @endif
         </li>
     </ul>

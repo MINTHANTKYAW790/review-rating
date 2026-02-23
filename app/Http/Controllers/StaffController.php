@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Staff;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Models\Staff;
 
 class StaffController extends Controller
 {
@@ -11,18 +12,15 @@ class StaffController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $store = auth('web')->user()->store;
+    {
+        $stores = auth('web')->user()->stores() // Access the relationship builder
+            ->with(['staff' => function ($query) {
+                $query->withAvg('reviews', 'rating_staff');
+            }])
+            ->get(); // Retrieve the collection
 
-    if (!$store || $store == null) {
-        // Optionally redirect or just show a blank view
-        return view('staff.index', ['staff' => collect()]); // empty collection
+        return view('staff.index', compact('stores'));
     }
-
-    $staff = Staff::where('store_id', $store->id)->get();
-
-    return view('staff.index', compact('staff'));
-}
 
 
     /**
@@ -30,7 +28,8 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        $stores = auth('web')->user()->stores;
+        return view('staff.create', compact('stores'));
     }
 
     /**
@@ -42,14 +41,13 @@ class StaffController extends Controller
             'name' => 'required|string|max:255',
             'role' => 'nullable|string|max:255',
             'image_url' => 'nullable|image|max:2048',
+            'store_id' => 'required|exists:stores,id',
         ]);
 
         if ($request->hasFile('image_url')) {
             $path = $request->file('image_url')->store('staff_images', 'public');
             $validated['image_url'] = $path;
         }
-
-        $validated['store_id'] = auth('web')->user()->store->id;
 
         Staff::create($validated);
 
@@ -69,7 +67,13 @@ class StaffController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        // Ensure the staff belongs to the authenticated user's store
+        if (!auth('web')->user()->stores->pluck('id')->contains($staff->store_id)) {
+            abort(403);
+        }
+        $stores = auth('web')->user()->stores;
+        return view('staff.edit', compact('staff', 'stores'));
     }
 
     /**
@@ -77,7 +81,31 @@ class StaffController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        // Ensure the staff belongs to the authenticated user's store
+        if (!auth('web')->user()->stores->pluck('id')->contains($staff->store_id)) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'nullable|string|max:255',
+            'image_url' => 'nullable|image|max:2048',
+            'store_id' => 'required|exists:stores,id',
+        ]);
+
+        if ($request->hasFile('image_url')) {
+            // Delete old image if exists
+            if ($staff->image_url) {
+                Storage::disk('public')->delete($staff->image_url);
+            }
+            $path = $request->file('image_url')->store('staff_images', 'public');
+            $validated['image_url'] = $path;
+        }
+
+        $staff->update($validated);
+
+        return redirect()->route('staff.index')->with('success', 'Staff updated successfully.');
     }
 
     /**
@@ -85,6 +113,19 @@ class StaffController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $staff = Staff::findOrFail($id);
+        // Ensure the staff belongs to the authenticated user's store
+        if (!auth('web')->user()->stores->pluck('id')->contains($staff->store_id)) {
+            abort(403);
+        }
+
+        // Delete image if exists
+        if ($staff->image_url) {
+            Storage::disk('public')->delete($staff->image_url);
+        }
+
+        $staff->delete();
+
+        return redirect()->route('staff.index')->with('success', 'Staff deleted successfully.');
     }
 }

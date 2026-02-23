@@ -1,0 +1,44 @@
+:root {
+    --primary-bg-color: #ffffff;
+    --secondary-bg-color: #f8f9fa;
+    --primary-text-color: #212529;
+    --secondary-text-color: #6c757d;
+    --border-color: #dee2e6;
+    --card-bg-color: #ffffff;
+    --card-shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode {
+    --primary-bg-color: #121212;
+    --secondary-bg-color: #1e1e1e;
+    --primary-text-color: #e0e0e0;
+    --secondary-text-color: #a0a0a0;
+    --border-color: #333333;
+    --card-bg-color: #1e1e1e;
+    --card-shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    box-shadow: 0 0.5rem 1rem var(--card-shadow-color);
+    border-color: var(--border-color);
+}
+
+.card-header, .card-footer {
+    background-color: var(--secondary-bg-color);
+    border-bottom-color: var(--border-color);
+}
+
+.card-title {
+    color: var(--primary-text-color);
+}
+
+.card-text {
+    color: var(--secondary-text-color);
+}

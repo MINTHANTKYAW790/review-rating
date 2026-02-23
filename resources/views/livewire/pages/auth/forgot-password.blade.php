@@ -37,6 +37,11 @@ new #[Layout('layouts.guest')] class extends Component
 }; ?>
 
 <div>
+    @if (session('status'))
+        <div class="mb-4 font-medium text-sm text-green-600 bg-green-100 p-3 rounded-md">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="mb-4 text-sm text-gray-600">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>

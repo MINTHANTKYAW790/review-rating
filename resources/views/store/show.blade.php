@@ -19,19 +19,19 @@
                 <div class="col-md-8">
                     <table class="table table-borderless">
                         <tr>
-                            <th>Phone:</th>
+                            <th>{{ __('messages.phone') }}</th>
                             <td>{{ $store->phone ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <th>Email:</th>
+                            <th>{{ __('messages.email') }}</th>
                             <td>{{ $store->email ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <th>Address:</th>
+                            <th>{{ __('messages.address') }}</th>
                             <td>{{ $store->address ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <th>QR Identifier:</th>
+                            <th>{{ __('messages.qr_identifier') }}</th>
                             <td>{{ $store->qr_identifier }}</td>
                         </tr>
                     </table>
@@ -40,14 +40,14 @@
 
             @if ($store->description)
                 <div class="mt-4">
-                    <h5>Description</h5>
+                    <h5>{{ __('messages.description') }}</h5>
                     <p class="text-muted">{{ $store->description }}</p>
                 </div>
             @endif
         </div>
 
         <div class="card-footer bg-white text-right">
-            <a href="{{ route('store.index') }}" class="btn btn-secondary">Back to Stores</a>
+            <a href="{{ route('store.index') }}" class="btn btn-secondary">{{ __('messages.back_to_stores') }}</a>
         </div>
     </div>
 </div>

@@ -4,15 +4,15 @@
         <span class="brand-text font-weight-light d-flex flex-row align-items-center">
             <i class="fas fa-store ml-2 mr-4"></i>
             <div class="d-flex flex-column align-items-start">
-                <div>{{ isset($store) && !empty($store->name) ? $store->name : 'Store Admin' }}</div>
-                <small class="text-muted" style="font-size: 12px;">management panel</small>
+                <div>{{ isset($store) && !empty($store->name) ? $store->name : __('messages.store_admin') }}</div>
+                <small class="text-muted" style="font-size: 12px;">{{ __('messages.management_panel_small') }}</small>
             </div>
         </span>
     </a>
     <div class="sidebar">
         <div class="form-inline mt-2">
             <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sm form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sm form-control-sidebar" type="search" placeholder="{{ __('messages.search') }}" aria-label="{{ __('messages.search') }}">
                 <div class="input-group-append">
                     <button class="btn-sidebar">
                         <i class="fas fa-search fa-fw"></i>
@@ -26,7 +26,7 @@
                     <a href="{{ route('dashboard') }}" class="nav-link @if (Request::is('dashboard*')) active @endif">
                         <i class="fas fa-tachometer-alt nav-icon"></i>
                         <p>
-                            Dashboard
+                            {{ __('messages.dashboard') }}
                         </p>
                     </a>
                 </li>
@@ -36,7 +36,7 @@
                     <a href="{{ route('store.index') }}" class="nav-link @if (Request::is('store*')) active @endif">
                         <i class="fas fa-store nav-icon"></i>
                         <p>
-                            Store Profile
+                            {{ __('messages.store_profile') }}
                         </p>
                     </a>
                 </li>
@@ -46,7 +46,7 @@
                     <a href="{{ route('staff.index') }}" class="nav-link @if (Request::is('staff*')) active @endif">
                         <i class="fas fa-users nav-icon"></i>
                         <p>
-                            Staff Management
+                            {{ __('messages.staff_management') }}
                         </p>
                     </a>
                 </li>
@@ -57,7 +57,7 @@
                     <a href="{{ route('public.qr-preview') }}" class="nav-link @if (Request::is('public*')) active @endif">
                         <i class="fas fa-qrcode nav-icon"></i>
                         <p>
-                            QR Code Generator
+                            {{ __('messages.qr_code_generator') }}
                         </p>
                     </a>
                 </li>
@@ -68,25 +68,23 @@
                     <a href="{{ route('review.index') }}" class="nav-link @if (Request::is('review*')) active @endif">
                         <i class="far fa-star nav-icon"></i>
                         <p>
-                            Reviews & Ratings
+                            {{ __('messages.reviews_ratings') }}
                         </p>
                     </a>
                 </li>
             </ul>
-            <!-- 
+            
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}" class="nav-link">
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
-                        <a hrefs="#" class="logout-btn" onclick="event.preventDefault(); this.closest('form').submit();" style="cursor: pointer;">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                Logout
-                            </p>
-                        </a>
+                        <button type="submit" class="nav-link btn btn-link text-left" style="color: #c2c7d0; padding: 0;">
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
+                            <p>{{ __('messages.logout') }}</p>
+                        </button>
                     </form>
                 </li>
-            </ul> -->
+            </ul>
         </nav>
     </div>
 </aside>
