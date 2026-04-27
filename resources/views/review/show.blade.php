@@ -30,10 +30,6 @@
                             <th>Address:</th>
                             <td>{{ $store->address ?? '-' }}</td>
                         </tr>
-                        <tr>
-                            <th>QR Identifier:</th>
-                            <td>{{ $store->qr_identifier }}</td>
-                        </tr>
                     </table>
                 </div>
             </div>

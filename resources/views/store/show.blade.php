@@ -30,10 +30,6 @@
                             <th>{{ __('messages.address') }}</th>
                             <td>{{ $store->address ?? '-' }}</td>
                         </tr>
-                        <tr>
-                            <th>{{ __('messages.qr_identifier') }}</th>
-                            <td>{{ $store->qr_identifier }}</td>
-                        </tr>
                     </table>
                 </div>
             </div>

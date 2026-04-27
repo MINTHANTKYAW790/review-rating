@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('staff', StaffController::class)->names('staff');
     Route::resource('review', ReviewController::class)->names('review');
     Route::get('/qr/download/{store}', [StoreController::class, 'downloadQr'])->name('qr.download');
+    Route::get('/qr/download/{store}/{template}', [StoreController::class, 'downloadStyledQr'])->name('qr.download.template');
+    Route::get('/qr/image/{store}', [StoreController::class, 'getQrImage'])->name('qr.image');
     Route::delete('/review/{review}/comment', [ReviewController::class, 'deleteComment'])->name('review.deleteComment');
     Route::get('/public/qr/qr-preview', [StoreController::class, 'showQr'])->name('public.qr-preview');
 });

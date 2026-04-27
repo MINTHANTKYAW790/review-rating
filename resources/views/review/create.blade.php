@@ -49,11 +49,6 @@
                     <small class="form-text text-muted mt-2">{{ __('messages.image_upload_hint') }}</small>
                 </div>
 
-                <div class="form-group mt-4">
-                    <label for="qr_identifier">{{ __('messages.qr_identifier') }} <span class="text-danger">*</span></label>
-                    <input type="text" name="qr_identifier" class="form-control" id="qr_identifier" required value="{{ old('qr_identifier') }}">
-                </div>
-
                 <div class="form-group text-right mt-4">
                     <button type="submit" class="btn btn-primary px-4">{{ __('messages.create_store') }}</button>
                 </div>
