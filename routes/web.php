@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('store', StoreController::class)->names('store');
     Route::resource('staff', StaffController::class)->names('staff');
     Route::resource('review', ReviewController::class)->names('review');
+    Route::post('/review/{review}/mark-read', [ReviewController::class, 'markRead'])->name('review.mark-read');
     Route::get('/qr/download/{store}', [StoreController::class, 'downloadQr'])->name('qr.download');
     Route::get('/qr/download/{store}/{template}', [StoreController::class, 'downloadStyledQr'])->name('qr.download.template');
     Route::get('/qr/image/{store}', [StoreController::class, 'getQrImage'])->name('qr.image');

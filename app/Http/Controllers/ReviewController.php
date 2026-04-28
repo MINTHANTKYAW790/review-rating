@@ -14,12 +14,18 @@ class ReviewController extends Controller
     {
         $userStoresIds = auth('web')->user()->stores->pluck('id');
 
-        $reviews = Review::with('staff') // eager load staff
+        $reviews = Review::with(['staff', 'store']) // eager load related data
             ->whereIn('store_id', $userStoresIds) // Filter by user's store IDs
             ->latest()
             ->paginate(10); // change per-page count as needed
 
-        return view('review.index', compact('reviews'));
+        $unreadCount = Review::whereIn('store_id', $userStoresIds)
+            ->whereNull('read_at')
+            ->count();
+
+        $reviewChannel = 'user.' . auth('web')->id() . '.reviews';
+
+        return view('review.index', compact('reviews', 'unreadCount', 'reviewChannel'));
     }
 
 
@@ -94,5 +100,32 @@ class ReviewController extends Controller
         $review->save();
 
         return redirect()->route('review.index')->with('success', 'Comment deleted successfully.');
+    }
+
+    public function markRead(Review $review)
+    {
+        $user = auth('web')->user();
+
+        $isOwnedByUser = $user->stores()->whereKey($review->store_id)->exists();
+        if (! $isOwnedByUser) {
+            abort(403);
+        }
+
+        if (is_null($review->read_at)) {
+            $review->forceFill([
+                'read_at' => now(),
+            ])->save();
+        }
+
+        $userStoreIds = $user->stores()->pluck('id');
+        $unreadCount = Review::whereIn('store_id', $userStoreIds)
+            ->whereNull('read_at')
+            ->count();
+
+        return response()->json([
+            'success' => true,
+            'unread_count' => $unreadCount,
+            'review_id' => $review->id,
+        ]);
     }
 }

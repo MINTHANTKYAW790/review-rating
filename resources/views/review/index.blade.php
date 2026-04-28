@@ -1,10 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-4" x-data="{ showDeleteModal: false, deletingReviewId: null }">
+<div
+    class="container mt-4"
+    id="review-page"
+    x-data="{ showDeleteModal: false, deletingReviewId: null }"
+    data-unread-count="{{ $unreadCount }}"
+    data-mark-read-url-template="{{ route('review.mark-read', ['review' => '__REVIEW__']) }}"
+    data-review-channel="{{ $reviewChannel }}"
+>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Reviews & Ratings</h4>
+        <span class="badge bg-danger fs-6" id="review-unread-badge">
+            Unread: <span id="review-unread-count">{{ $unreadCount }}</span>
+        </span>
+    </div>
 
     @foreach ($reviews as $review)
-    <div class="card border-0 shadow-sm mb-4 rounded-4 overflow-hidden">
+    <div
+        class="card border-0 shadow-sm mb-4 rounded-4 overflow-hidden js-review-card {{ is_null($review->read_at) ? 'border border-warning-subtle' : '' }}"
+        data-review-id="{{ $review->id }}"
+        data-read-at="{{ optional($review->read_at)->toISOString() }}"
+    >
         <div class="card-header bg-white border-bottom border-light py-3 px-4">
             <div class="d-flex justify-content-between align-items-center">
                 <span class="text-muted small fw-medium">

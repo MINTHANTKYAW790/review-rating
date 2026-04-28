@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ReviewCreated;
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
 use Illuminate\Support\Facades\Storage;
@@ -152,6 +153,8 @@ class StoreController extends Controller
             'comment' => $validated['comment'] ?? null,
             'comment_staff' => $validated['comment_staff'] ?? null,
         ]);
+
+        event(new ReviewCreated($review, (int) $store->user_id));
 
         $rating = $validated['rating_store'];
         $message = '';
