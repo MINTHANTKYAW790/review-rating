@@ -60,18 +60,14 @@
     "src": "node_modules/admin-lte/plugins/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
   "resources/css/app.scss": {
-    "file": "assets/app-a22246d2.css",
+    "file": "assets/app-8996fc94.css",
     "isEntry": true,
     "src": "resources/css/app.scss"
   },
   "resources/css/theme.css": {
-    "file": "assets/theme-19cca6cc.css",
+    "file": "assets/theme-0b7d2a77.css",
     "isEntry": true,
     "src": "resources/css/theme.css"
-  },
-  "resources/fonts/Poppins/Poppins-Regular.ttf": {
-    "file": "assets/Poppins-Regular-707fdc5c.ttf",
-    "src": "resources/fonts/Poppins/Poppins-Regular.ttf"
   },
   "resources/js/app.css": {
     "file": "assets/app-c60a8e8a.css",
@@ -81,7 +77,7 @@
     "css": [
       "assets/app-c60a8e8a.css"
     ],
-    "file": "assets/app-9061eaca.js",
+    "file": "assets/app-27fa19aa.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

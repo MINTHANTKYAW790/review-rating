@@ -13,7 +13,7 @@
         transform: translateY(-1px);
         box-shadow: 0 4px 10px rgba(104, 104, 172, 0.25);
     }
-s
+
     .tea-icon-wrap {
         width: 30px;
         height: 30px;

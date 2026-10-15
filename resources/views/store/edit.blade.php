@@ -32,6 +32,20 @@
                     <textarea name="address" class="form-control" id="address" rows="2">{{ old('address', $store->address) }}</textarea>
                 </div>
 
+                @can('update', $store)
+                @if(auth()->user()?->can('edit_stores'))
+                <div class="form-group">
+                    <label for="manager_id">{{ __('messages.store_manager') }}</label>
+                    <select name="manager_id" id="manager_id" class="form-control">
+                        <option value="">{{ __('messages.no_manager') }}</option>
+                        @foreach ($managers ?? [] as $manager)
+                            <option value="{{ $manager->id }}" @selected(old('manager_id', $store->manager_id) == $manager->id)>{{ $manager->name }} ({{ $manager->email }})</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
+                @endcan
+
                 <h5 class="mb-3 mt-4 border-bottom pb-2 font-weight-bold">{{ __('messages.store_description') }}</h5>
 
                 <div class="form-group">

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Support\HeaderPlanCue;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('layouts.nav', function ($view) {
+            $user = auth('web')->user();
+
+            $view->with('headerPlanCue', $user ? HeaderPlanCue::for($user) : null);
+        });
     }
 }

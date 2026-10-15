@@ -2,51 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
+use App\Http\Requests\StaffRequest;
 use App\Models\Staff;
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $stores = auth('web')->user()->stores() // Access the relationship builder
+        $this->authorize('viewAny', Staff::class);
+
+        $stores = auth('web')->user()->accessibleStores()
             ->with(['staff' => function ($query) {
                 $query->withAvg('reviews', 'rating_staff');
             }])
-            ->get(); // Retrieve the collection
+            ->get();
 
         return view('staff.index', compact('stores'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+        $this->authorize('create', Staff::class);
         $stores = auth('web')->user()->stores;
+
         return view('staff.create', compact('stores'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StaffRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'nullable|string|max:255',
-            'image_url' => 'nullable|image|max:2048',
-            'store_id' => 'required|exists:stores,id',
-        ]);
+        $this->authorize('create', Staff::class);
+
+        $validated = $request->validated();
 
         if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('staff_images', 'public');
-            $validated['image_url'] = $path;
+            $validated['image_url'] = $request->file('image_url')->store('staff_images', 'public');
         }
 
         Staff::create($validated);
@@ -54,53 +44,32 @@ class StaffController extends Controller
         return redirect()->route('staff.index')->with('success', 'Staff added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Staff $staff)
     {
-        //
+        $this->authorize('view', $staff);
+
+        return redirect()->route('staff.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Staff $staff)
     {
-        $staff = Staff::findOrFail($id);
-        // Ensure the staff belongs to the authenticated user's store
-        if (!auth('web')->user()->stores->pluck('id')->contains($staff->store_id)) {
-            abort(403);
-        }
+        $this->authorize('update', $staff);
         $stores = auth('web')->user()->stores;
+
         return view('staff.edit', compact('staff', 'stores'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(StaffRequest $request, Staff $staff)
     {
-        $staff = Staff::findOrFail($id);
-        // Ensure the staff belongs to the authenticated user's store
-        if (!auth('web')->user()->stores->pluck('id')->contains($staff->store_id)) {
-            abort(403);
-        }
+        $this->authorize('update', $staff);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'nullable|string|max:255',
-            'image_url' => 'nullable|image|max:2048',
-            'store_id' => 'required|exists:stores,id',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image_url')) {
-            // Delete old image if exists
             if ($staff->image_url) {
                 Storage::disk('public')->delete($staff->image_url);
             }
-            $path = $request->file('image_url')->store('staff_images', 'public');
-            $validated['image_url'] = $path;
+            $validated['image_url'] = $request->file('image_url')->store('staff_images', 'public');
         }
 
         $staff->update($validated);
@@ -108,18 +77,10 @@ class StaffController extends Controller
         return redirect()->route('staff.index')->with('success', 'Staff updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Staff $staff)
     {
-        $staff = Staff::findOrFail($id);
-        // Ensure the staff belongs to the authenticated user's store
-        if (!auth('web')->user()->stores->pluck('id')->contains($staff->store_id)) {
-            abort(403);
-        }
+        $this->authorize('delete', $staff);
 
-        // Delete image if exists
         if ($staff->image_url) {
             Storage::disk('public')->delete($staff->image_url);
         }

@@ -1,8 +1,50 @@
 import './bootstrap';
+import Chart from 'chart.js/auto';
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
 import 'admin-lte/plugins/jquery/jquery.min.js';
+import 'admin-lte/plugins/datatables/jquery.dataTables.min.js';
+import 'admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js';
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js';
 import 'admin-lte/dist/js/adminlte.min.js';
 import 'admin-lte/dist/css/adminlte.min.css';
+
+document.querySelectorAll('.js-rating-star-chart').forEach((canvas) => {
+    const counts = JSON.parse(canvas.dataset.counts || '[]');
+    const labels = JSON.parse(canvas.dataset.labels || '[]');
+
+    new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                data: counts,
+                backgroundColor: ['#f4b740', '#f6c96a', '#f8d894', '#cfd8e3', '#adb5bd'],
+                borderWidth: 0,
+                borderRadius: 4,
+            }],
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 },
+                    grid: { drawBorder: false },
+                },
+                y: {
+                    grid: { display: false, drawBorder: false },
+                },
+            },
+        },
+    });
+});
 
 const reviewPageRoot = document.getElementById('review-page');
 

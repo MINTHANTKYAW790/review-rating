@@ -7,6 +7,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Review Rating (this app)
+
+Store-owner admin for QR-linked customer reviews. Admin UI is AdminLTE 3 + Bootstrap 4; auth uses Laravel Breeze (Livewire/Volt).
+
+### Notable packages
+- `spatie/laravel-permission` — roles & permissions
+- `spatie/laravel-activitylog` — mutation audit trail (`/activity-log`)
+- `laravel/telescope` — local debugging (`/telescope`, superadmin in non-local)
+- `yajra/laravel-datatables-oracle` — reviews table
+- `simplesoftwareio/simple-qrcode` — styled QR downloads
+- `laravel/socialite` — Google login
+
+### Setup notes
+```bash
+composer install
+cp .env.example .env && php artisan key:generate
+php artisan migrate --seed
+npm install && npm run build
+php artisan serve
+```
+Seed roles/permissions with `php artisan db:seed --class=RoleAndPermissionSeeder`.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

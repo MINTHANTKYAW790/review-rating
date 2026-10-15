@@ -1,13 +1,19 @@
 @extends('layouts.app')
 
+@section('title', __('messages.staff_management'))
+
 @section('content')
-<div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4 mx-2">
-        <h5>{{ __('messages.total_staff') }}: <strong>{{ $stores->flatMap->staff->count() }}</strong></h5>
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStaffModal">
-            + {{ __('messages.add_new_staff') }}
-        </button>
-    </div>
+<section class="content">
+<div class="container-fluid">
+    <x-page-header :title="__('messages.staff_management')" :subtitle="__('messages.total_staff') . ': ' . $stores->flatMap->staff->count()">
+        <x-slot:actions>
+            @can('create', \App\Models\Staff::class)
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addStaffModal" type="button">
+                <i class="fas fa-plus mr-1"></i> {{ __('messages.add_new_staff') }}
+            </button>
+            @endcan
+        </x-slot:actions>
+    </x-page-header>
 
     <div class="row">
         @foreach($stores as $store)
@@ -15,8 +21,8 @@
             <h4 class="ml-2">{{ $store->name }} : {{$store->staff->count()}}</h4>
             <div class="row">
                 @if($store->staff->isEmpty())
-                <div class="col-12 text-center">
-                    <p class="text-muted">{{ __('messages.no_staff_members') }}</p>
+                <div class="col-12">
+                    <x-empty-state :message="__('messages.no_staff_members')" icon="fa-user" />
                 </div>
                 @else
                 @foreach($store->staff as $member)
@@ -46,6 +52,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center gap-2 mt-3">
+                                @can('update', $member)
                                 <button class="btn btn-sm btn-outline-secondary mx-2"
                                     data-toggle="modal" data-target="#editStaffModal"
                                     onclick="editStaff(this)"
@@ -56,7 +63,9 @@
                                     data-store-id="{{ $store->id }}">
                                     <i class="fas fa-edit"></i> {{ __('messages.edit') }}
                                 </button>
+                                @endcan
 
+                                @can('delete', $member)
                                 <button type="button" class="btn btn-sm btn-outline-danger"
                                     data-toggle="modal" data-target="#deleteStaffModal"
                                     onclick="deleteStaff(this)"
@@ -64,6 +73,7 @@
                                     data-name="{{ $member->name }}">
                                     <i class="fas fa-trash"></i> {{ __('messages.delete') }}
                                 </button>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -75,6 +85,7 @@
         @endforeach
     </div>
 </div>
+</section>
 
 <!-- Add Staff Modal -->
 <div class="modal fade" id="addStaffModal" tabindex="-1" role="dialog" aria-labelledby="addStaffModalLabel" aria-hidden="true">

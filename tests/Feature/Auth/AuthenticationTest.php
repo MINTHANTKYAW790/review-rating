@@ -44,7 +44,10 @@ test('users can not authenticate with invalid password', function () {
 });
 
 test('navigation menu can be rendered', function () {
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'RoleAndPermissionSeeder']);
+
     $user = User::factory()->create();
+    $user->assignRole('admin');
 
     $this->actingAs($user);
 
@@ -52,20 +55,15 @@ test('navigation menu can be rendered', function () {
 
     $response
         ->assertOk()
-        ->assertSeeVolt('layout.navigation');
+        ->assertSee('Dashboard')
+        ->assertSee(__('messages.store_profile'));
 });
 
 test('users can logout', function () {
     $user = User::factory()->create();
 
-    $this->actingAs($user);
-
-    $component = Volt::test('layout.navigation');
-
-    $component->call('logout');
-
-    $component
-        ->assertHasNoErrors()
+    $this->actingAs($user)
+        ->post('/logout')
         ->assertRedirect('/');
 
     $this->assertGuest();
