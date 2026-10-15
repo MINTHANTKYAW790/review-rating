@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +23,7 @@
     <!-- Welcome Portfolio Custom Styles -->
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
 </head>
+
 <body>
 
     <!-- =====================================================================
@@ -44,7 +46,7 @@
                 <!-- Navigation Links (+ drawer CTAs on small screens) -->
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#features" class="nav-link">{{ __('messages.welcome_nav_features') }}</a></li>
-                    <li><a href="#demo-sandbox" class="nav-link"><i class="fa-solid fa-flask" style="opacity: 0.8; margin-right: 4px;"></i> Demo Sandbox</a></li>
+                    <li><a href="#demo-sandbox" class="nav-link"><i class="fa-solid fa-flask" style="opacity: 0.8; margin-right: 4px;"></i> {{ __('messages.demo_sandbox') }}</a></li>
                     <li><a href="#portfolio" class="nav-link">{{ __('messages.welcome_nav_portfolio') }}</a></li>
                     {{-- <li><a href="#qr-showcase" class="nav-link">{{ __('messages.welcome_nav_qr') }}</a></li> --}}
                     {{-- <li><a href="#admin-portal" class="nav-link">{{ __('messages.welcome_nav_admin') }}</a></li> --}}
@@ -92,19 +94,19 @@
 
                     <div class="hero-ctas">
                         @auth
-                            <a href="{{ auth()->user()->isSuperAdmin() ? route('superadmin.dashboard') : route('dashboard') }}" class="btn btn-primary btn-lg">
-                                <i class="fa-solid fa-gauge"></i>
-                                <span>{{ __('messages.welcome_go_dashboard') }}</span>
-                            </a>
+                        <a href="{{ auth()->user()->isSuperAdmin() ? route('superadmin.dashboard') : route('dashboard') }}" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-gauge"></i>
+                            <span>{{ __('messages.welcome_go_dashboard') }}</span>
+                        </a>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-primary btn-lg" id="heroAdminLoginBtn">
-                                <i class="fa-solid fa-key"></i>
-                                <span>Login</span>
-                            </a>
-                            <a href="#demo-sandbox" class="btn btn-outline-primary btn-lg">
-                                <i class="fa-solid fa-flask"></i>
-                                <span>Try Demo Stores</span>
-                            </a>
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-lg" id="heroAdminLoginBtn">
+                            <i class="fa-solid fa-key"></i>
+                            <span>Login</span>
+                        </a>
+                        <a href="#demo-sandbox" class="btn btn-outline-primary btn-lg">
+                            <i class="fa-solid fa-flask"></i>
+                            <span>Try Demo Stores</span>
+                        </a>
                         @endauth
                         <a href="#portfolio" class="btn btn-ghost btn-lg">
                             <span>{{ __('messages.welcome_explore_portfolio') }}</span>
@@ -198,144 +200,144 @@
         <div class="container">
             <div class="section-head">
                 <span class="section-badge">{{ __('messages.welcome_admin_badge') }}</span>
-                <h2 class="section-title">{{ __('messages.welcome_admin_title') }}</h2>
-                <p class="section-desc">
-                    {{ __('messages.welcome_admin_desc') }}
+    <h2 class="section-title">{{ __('messages.welcome_admin_title') }}</h2>
+    <p class="section-desc">
+        {{ __('messages.welcome_admin_desc') }}
+    </p>
+    </div>
+
+    <div class="admin-portal-card">
+        <div class="admin-portal-grid">
+            <!-- Left: Interactive Perspective Simulator -->
+            <div>
+                <div class="portal-badge">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>{{ __('messages.welcome_portal_badge') }}</span>
+                </div>
+                <h3 class="portal-title">{{ __('messages.welcome_portal_title') }}</h3>
+                <p class="portal-desc">
+                    {{ __('messages.welcome_portal_desc') }}
                 </p>
-            </div>
 
-            <div class="admin-portal-card">
-                <div class="admin-portal-grid">
-                    <!-- Left: Interactive Perspective Simulator -->
-                    <div>
-                        <div class="portal-badge">
-                            <i class="fa-solid fa-sliders"></i>
-                            <span>{{ __('messages.welcome_portal_badge') }}</span>
+                <div class="store-perspective-tabs" id="perspectiveTabs">
+                    <button type="button" class="perspective-tab active" data-store-name="Sunrise Cafe" data-store-role="{{ __('messages.welcome_role_owner') }}" data-store-plan="Store Pro" data-staff-count="6" data-reviews-count="384" data-rating="4.9 ★" data-manager="Owner One" data-slug="sunrise-cafe">
+                        <i class="fa-solid fa-mug-hot"></i>
+                        <span>Sunrise Cafe</span>
+                    </button>
+                    <button type="button" class="perspective-tab" data-store-name="Sunrise Bakery" data-store-role="{{ __('messages.welcome_role_owner') }}" data-store-plan="Store Pro" data-staff-count="4" data-reviews-count="219" data-rating="4.8 ★" data-manager="Owner One" data-slug="sunrise-bakery">
+                        <i class="fa-solid fa-bread-slice"></i>
+                        <span>Sunrise Bakery</span>
+                    </button>
+                    <button type="button" class="perspective-tab" data-store-name="Moonlight Diner" data-store-role="{{ __('messages.welcome_role_manager') }}" data-store-plan="Store Pro Plus" data-staff-count="10" data-reviews-count="592" data-rating="4.9 ★" data-manager="Tun Tun" data-slug="moonlight-diner">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>Moonlight Diner</span>
+                    </button>
+                    <button type="button" class="perspective-tab" data-store-name="Moonlight Tea" data-store-role="{{ __('messages.welcome_role_owner') }}" data-store-plan="Starter Free" data-staff-count="3" data-reviews-count="145" data-rating="4.7 ★" data-manager="Owner Two" data-slug="moonlight-tea">
+                        <i class="fa-solid fa-leaf"></i>
+                        <span>Moonlight Tea</span>
+                    </button>
+                </div>
+
+                <!-- Active Perspective Panel -->
+                <div class="perspective-preview-panel">
+                    <div class="perspective-panel-header">
+                        <div class="perspective-store-info">
+                            <div class="perspective-store-avatar" id="perspectiveAvatar">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div>
+                                <div class="perspective-store-name" id="perspectiveStoreName">Sunrise Cafe</div>
+                                <div class="perspective-store-role" id="perspectiveStoreRole">{{ __('messages.welcome_managed_by', ['name' => 'Owner One', 'role' => __('messages.welcome_role_owner')]) }}</div>
+                            </div>
                         </div>
-                        <h3 class="portal-title">{{ __('messages.welcome_portal_title') }}</h3>
-                        <p class="portal-desc">
-                            {{ __('messages.welcome_portal_desc') }}
-                        </p>
-
-                        <div class="store-perspective-tabs" id="perspectiveTabs">
-                            <button type="button" class="perspective-tab active" data-store-name="Sunrise Cafe" data-store-role="{{ __('messages.welcome_role_owner') }}" data-store-plan="Store Pro" data-staff-count="6" data-reviews-count="384" data-rating="4.9 ★" data-manager="Owner One" data-slug="sunrise-cafe">
-                                <i class="fa-solid fa-mug-hot"></i>
-                                <span>Sunrise Cafe</span>
-                            </button>
-                            <button type="button" class="perspective-tab" data-store-name="Sunrise Bakery" data-store-role="{{ __('messages.welcome_role_owner') }}" data-store-plan="Store Pro" data-staff-count="4" data-reviews-count="219" data-rating="4.8 ★" data-manager="Owner One" data-slug="sunrise-bakery">
-                                <i class="fa-solid fa-bread-slice"></i>
-                                <span>Sunrise Bakery</span>
-                            </button>
-                            <button type="button" class="perspective-tab" data-store-name="Moonlight Diner" data-store-role="{{ __('messages.welcome_role_manager') }}" data-store-plan="Store Pro Plus" data-staff-count="10" data-reviews-count="592" data-rating="4.9 ★" data-manager="Tun Tun" data-slug="moonlight-diner">
-                                <i class="fa-solid fa-utensils"></i>
-                                <span>Moonlight Diner</span>
-                            </button>
-                            <button type="button" class="perspective-tab" data-store-name="Moonlight Tea" data-store-role="{{ __('messages.welcome_role_owner') }}" data-store-plan="Starter Free" data-staff-count="3" data-reviews-count="145" data-rating="4.7 ★" data-manager="Owner Two" data-slug="moonlight-tea">
-                                <i class="fa-solid fa-leaf"></i>
-                                <span>Moonlight Tea</span>
-                            </button>
-                        </div>
-
-                        <!-- Active Perspective Panel -->
-                        <div class="perspective-preview-panel">
-                            <div class="perspective-panel-header">
-                                <div class="perspective-store-info">
-                                    <div class="perspective-store-avatar" id="perspectiveAvatar">
-                                        <i class="fa-solid fa-store"></i>
-                                    </div>
-                                    <div>
-                                        <div class="perspective-store-name" id="perspectiveStoreName">Sunrise Cafe</div>
-                                        <div class="perspective-store-role" id="perspectiveStoreRole">{{ __('messages.welcome_managed_by', ['name' => 'Owner One', 'role' => __('messages.welcome_role_owner')]) }}</div>
-                                    </div>
-                                </div>
-                                <div class="perspective-status-badge">
-                                    <i class="fa-solid fa-circle"></i>
-                                    <span id="perspectiveStorePlan">{{ __('messages.welcome_plan_active', ['plan' => 'Store Pro']) }}</span>
-                                </div>
-                            </div>
-
-                            <div class="perspective-stats-row">
-                                <div class="perspective-stat-box">
-                                    <div class="perspective-stat-val" id="perspectiveStatReviews">384</div>
-                                    <div class="perspective-stat-lbl">{{ __('messages.welcome_stat_reviews') }}</div>
-                                </div>
-                                <div class="perspective-stat-box">
-                                    <div class="perspective-stat-val" id="perspectiveStatRating">4.9 ★</div>
-                                    <div class="perspective-stat-lbl">{{ __('messages.welcome_stat_score') }}</div>
-                                </div>
-                                <div class="perspective-stat-box">
-                                    <div class="perspective-stat-val" id="perspectiveStatStaff">6</div>
-                                    <div class="perspective-stat-lbl">{{ __('messages.welcome_stat_staff') }}</div>
-                                </div>
-                            </div>
-
-                            <div class="perspective-actions">
-                                <a href="{{ route('login') }}" class="btn btn-primary btn-sm flex-fill" id="perspectiveLoginBtn">
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                    <span>{{ __('messages.welcome_login_manage') }}</span>
-                                </a>
-                                <a href="{{ url('/public/qr/sunrise-cafe') }}" target="_blank" class="btn btn-outline-primary btn-sm" id="perspectivePreviewQrBtn" style="color:#fff !important; border-color: rgba(255,255,255,0.3);">
-                                    <i class="fa-solid fa-qrcode"></i>
-                                    <span>{{ __('messages.welcome_test_qr') }}</span>
-                                </a>
-                            </div>
+                        <div class="perspective-status-badge">
+                            <i class="fa-solid fa-circle"></i>
+                            <span id="perspectiveStorePlan">{{ __('messages.welcome_plan_active', ['plan' => 'Store Pro']) }}</span>
                         </div>
                     </div>
 
-                    <!-- Right: Quick Admin Login Card -->
-                    <div class="admin-login-box">
-                        <div class="login-box-header">
-                            <h4 class="login-box-title">{{ __('messages.welcome_login_box_title') }}</h4>
-                            <p class="login-box-sub">{{ __('messages.welcome_login_box_sub') }}</p>
+                    <div class="perspective-stats-row">
+                        <div class="perspective-stat-box">
+                            <div class="perspective-stat-val" id="perspectiveStatReviews">384</div>
+                            <div class="perspective-stat-lbl">{{ __('messages.welcome_stat_reviews') }}</div>
                         </div>
-
-                        <div class="login-buttons-stack">
-                            <!-- Direct Email Login -->
-                            <a href="{{ route('login') }}" class="btn btn-primary btn-lg w-100">
-                                <i class="fa-solid fa-envelope"></i>
-                                <span>{{ __('messages.welcome_sign_in_email') }}</span>
-                            </a>
-
-                            <!-- Google Login Button -->
-                            @if (Route::has('auth.google'))
-                                <a href="{{ route('auth.google') }}" class="login-google-btn">
-                                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                                    <span>{{ __('messages.welcome_continue_google') }}</span>
-                                </a>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <div class="login-divider">{{ __('messages.welcome_or_create') }}</div>
-                                <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                    <span>{{ __('messages.welcome_register_store') }}</span>
-                                </a>
-                            @endif
+                        <div class="perspective-stat-box">
+                            <div class="perspective-stat-val" id="perspectiveStatRating">4.9 ★</div>
+                            <div class="perspective-stat-lbl">{{ __('messages.welcome_stat_score') }}</div>
                         </div>
-
-                        <!-- Demo Accounts Helper for Quick Evaluation -->
-                        <div class="demo-credentials-card">
-                            <div class="demo-cred-title">
-                                <i class="fa-solid fa-circle-info"></i>
-                                <span>{{ __('messages.welcome_demo_title') }}</span>
-                            </div>
-                            <div class="demo-cred-row">
-                                <span>{{ __('messages.welcome_demo_admin') }}</span>
-                                <code>owner1@example.com</code>
-                            </div>
-                            <div class="demo-cred-row">
-                                <span>{{ __('messages.welcome_demo_password') }}</span>
-                                <code>123123123</code>
-                            </div>
-                            <div class="demo-cred-row" style="margin-top:0.4rem;">
-                                <span>{{ __('messages.welcome_demo_super') }}</span>
-                                <code>superadmin@example.com</code>
-                            </div>
+                        <div class="perspective-stat-box">
+                            <div class="perspective-stat-val" id="perspectiveStatStaff">6</div>
+                            <div class="perspective-stat-lbl">{{ __('messages.welcome_stat_staff') }}</div>
                         </div>
+                    </div>
+
+                    <div class="perspective-actions">
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm flex-fill" id="perspectiveLoginBtn">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>{{ __('messages.welcome_login_manage') }}</span>
+                        </a>
+                        <a href="{{ url('/public/qr/sunrise-cafe') }}" target="_blank" class="btn btn-outline-primary btn-sm" id="perspectivePreviewQrBtn" style="color:#fff !important; border-color: rgba(255,255,255,0.3);">
+                            <i class="fa-solid fa-qrcode"></i>
+                            <span>{{ __('messages.welcome_test_qr') }}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Quick Admin Login Card -->
+            <div class="admin-login-box">
+                <div class="login-box-header">
+                    <h4 class="login-box-title">{{ __('messages.welcome_login_box_title') }}</h4>
+                    <p class="login-box-sub">{{ __('messages.welcome_login_box_sub') }}</p>
+                </div>
+
+                <div class="login-buttons-stack">
+                    <!-- Direct Email Login -->
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-lg w-100">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>{{ __('messages.welcome_sign_in_email') }}</span>
+                    </a>
+
+                    <!-- Google Login Button -->
+                    @if (Route::has('auth.google'))
+                    <a href="{{ route('auth.google') }}" class="login-google-btn">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                        <span>{{ __('messages.welcome_continue_google') }}</span>
+                    </a>
+                    @endif
+
+                    @if (Route::has('register'))
+                    <div class="login-divider">{{ __('messages.welcome_or_create') }}</div>
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>{{ __('messages.welcome_register_store') }}</span>
+                    </a>
+                    @endif
+                </div>
+
+                <!-- Demo Accounts Helper for Quick Evaluation -->
+                <div class="demo-credentials-card">
+                    <div class="demo-cred-title">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>{{ __('messages.welcome_demo_title') }}</span>
+                    </div>
+                    <div class="demo-cred-row">
+                        <span>{{ __('messages.welcome_demo_admin') }}</span>
+                        <code>owner1@example.com</code>
+                    </div>
+                    <div class="demo-cred-row">
+                        <span>{{ __('messages.welcome_demo_password') }}</span>
+                        <code>123123123</code>
+                    </div>
+                    <div class="demo-cred-row" style="margin-top:0.4rem;">
+                        <span>{{ __('messages.welcome_demo_super') }}</span>
+                        <code>superadmin@example.com</code>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </section>
     --}}
 
@@ -354,35 +356,35 @@
 
             <div class="portfolio-grid">
                 @forelse ($dbStores as $store)
-                    <div class="store-card">
-                        <div class="store-card-header">
-                            @if (!empty($store->logo_url))
-                                <img src="{{ asset('storage/' . $store->logo_url) }}" alt="{{ $store->name }}">
-                            @else
-                                <div style="display:flex; align-items:center; justify-content:center; height:100%; color:#fff; font-size:3rem; background: linear-gradient(135deg, var(--navy-850) 0%, var(--primary) 100%);">
-                                    <i class="fa-solid fa-shop"></i>
-                                </div>
-                            @endif
-                            <div class="store-card-badge">
-                                <i class="fa-solid fa-certificate"></i>
-                                <span>{{ __('messages.welcome_verified_partner') }}</span>
-                            </div>
+                <div class="store-card">
+                    <div class="store-card-header">
+                        @if (!empty($store->logo_url))
+                        <img src="{{ asset('storage/' . $store->logo_url) }}" alt="{{ $store->name }}">
+                        @else
+                        <div style="display:flex; align-items:center; justify-content:center; height:100%; color:#fff; font-size:3rem; background: linear-gradient(135deg, var(--navy-850) 0%, var(--primary) 100%);">
+                            <i class="fa-solid fa-shop"></i>
                         </div>
+                        @endif
+                        <div class="store-card-badge">
+                            <i class="fa-solid fa-certificate"></i>
+                            <span>{{ __('messages.welcome_verified_partner') }}</span>
+                        </div>
+                    </div>
 
-                        <div class="store-card-body">
-                            <div class="store-category">{{ $store->address ?? 'Verified Store Location' }}</div>
-                            <h3 class="store-name">{{ $store->name }}</h3>
-                            @php
-                                $cleanDesc = trim(str_ireplace(['demo branch.', 'demo branch'], '', $store->description ?? ''));
-                            @endphp
-                            <p class="store-desc">{{ $cleanDesc ?: __('messages.welcome_store_default_desc') }}</p>
-                        </div>
+                    <div class="store-card-body">
+                        <div class="store-category">{{ $store->address ?? 'Verified Store Location' }}</div>
+                        <h3 class="store-name">{{ $store->name }}</h3>
+                        @php
+                        $cleanDesc = trim(str_ireplace(['demo branch.', 'demo branch'], '', $store->description ?? ''));
+                        @endphp
+                        <p class="store-desc">{{ $cleanDesc ?: __('messages.welcome_store_default_desc') }}</p>
                     </div>
+                </div>
                 @empty
-                    <div class="portfolio-empty">
-                        <i class="fa-solid fa-store-slash"></i>
-                        <p>{{ __('messages.welcome_no_stores_portfolio') }}</p>
-                    </div>
+                <div class="portfolio-empty">
+                    <i class="fa-solid fa-store-slash"></i>
+                    <p>{{ __('messages.welcome_no_stores_portfolio') }}</p>
+                </div>
                 @endforelse
             </div>
         </div>
@@ -440,71 +442,71 @@
             <!-- 3 Demo Stores Grid -->
             <div class="demo-stores-grid">
                 @forelse ($demoStores as $dStore)
-                    <div class="demo-store-card">
-                        <div class="demo-card-head">
-                            <div class="demo-card-top-row">
-                                <span class="demo-store-tag">
-                                    <i class="fa-solid fa-store"></i> Demo Store
-                                </span>
-                                <span class="demo-staff-count-badge">
-                                    <i class="fa-solid fa-users"></i> {{ $dStore->staff_count ?? $dStore->staff->count() }} Staff
-                                </span>
-                            </div>
-                            <h3 class="demo-card-title">{{ $dStore->name }}</h3>
-                            <div class="demo-card-address">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>{{ $dStore->address }}</span>
-                            </div>
+                <div class="demo-store-card">
+                    <div class="demo-card-head">
+                        <div class="demo-card-top-row">
+                            <span class="demo-store-tag">
+                                <i class="fa-solid fa-store"></i> Demo Store
+                            </span>
+                            <span class="demo-staff-count-badge">
+                                <i class="fa-solid fa-users"></i> {{ $dStore->staff_count ?? $dStore->staff->count() }} Staff
+                            </span>
                         </div>
-
-                        <div class="demo-card-body">
-                            <!-- Manager Information -->
-                            <div class="demo-manager-info">
-                                <div class="demo-manager-avatar">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                </div>
-                                <div>
-                                    <div style="font-weight: 700; color: var(--text-dark);">
-                                        {{ $dStore->manager?->name ?? 'Demo Manager' }}
-                                    </div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">
-                                        {{ $dStore->manager?->email ?? 'manager@demo.test' }} &bull; Pass: {{ $demoPassword }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Staff Preview List -->
-                            <div class="demo-staff-preview">
-                                <div class="demo-staff-preview-title">
-                                    <span>Assigned Staff ({{ $dStore->staff->count() }})</span>
-                                </div>
-                                <div class="demo-staff-chips">
-                                    @foreach ($dStore->staff as $st)
-                                        <span class="demo-staff-chip">
-                                            <i class="fa-solid fa-user"></i> {{ $st->name }} ({{ $st->role }})
-                                        </span>
-                                    @endforeach
-                                </div>
-                            </div>
-
-                            <!-- Testing Action CTAs -->
-                            <div class="demo-card-actions">
-                                <a href="{{ route('public.review', $dStore->slug) }}" target="_blank" class="btn btn-primary">
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>Give Review & Rating</span>
-                                </a>
-                                <a href="{{ route('login') }}" class="btn btn-outline-primary">
-                                    <i class="fa-solid fa-gauge"></i>
-                                    <span>Admin Login to Manage</span>
-                                </a>
-                            </div>
+                        <h3 class="demo-card-title">{{ $dStore->name }}</h3>
+                        <div class="demo-card-address">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>{{ $dStore->address }}</span>
                         </div>
                     </div>
+
+                    <div class="demo-card-body">
+                        <!-- Manager Information -->
+                        <div class="demo-manager-info">
+                            <div class="demo-manager-avatar">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--text-dark);">
+                                    {{ $dStore->manager?->name ?? 'Demo Manager' }}
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">
+                                    {{ $dStore->manager?->email ?? 'manager@demo.test' }} &bull; Pass: {{ $demoPassword }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Staff Preview List -->
+                        <div class="demo-staff-preview">
+                            <div class="demo-staff-preview-title">
+                                <span>Assigned Staff ({{ $dStore->staff->count() }})</span>
+                            </div>
+                            <div class="demo-staff-chips">
+                                @foreach ($dStore->staff as $st)
+                                <span class="demo-staff-chip">
+                                    <i class="fa-solid fa-user"></i> {{ $st->name }} ({{ $st->role }})
+                                </span>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Testing Action CTAs -->
+                        <div class="demo-card-actions">
+                            <a href="{{ route('public.review', $dStore->slug) }}" target="_blank" class="btn btn-primary">
+                                <i class="fa-solid fa-star"></i>
+                                <span>Give Review & Rating</span>
+                            </a>
+                            <a href="{{ route('login') }}" class="btn btn-outline-primary">
+                                <i class="fa-solid fa-gauge"></i>
+                                <span>Admin Login to Manage</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 @empty
-                    <div class="portfolio-empty" style="grid-column: 1 / -1;">
-                        <i class="fa-solid fa-store-slash"></i>
-                        <p>Demo stores are currently initializing. Run <code>php artisan db:seed --class=DemoStoreSeeder</code> to seed them.</p>
-                    </div>
+                <div class="portfolio-empty" style="grid-column: 1 / -1;">
+                    <i class="fa-solid fa-store-slash"></i>
+                    <p>Demo stores are currently initializing. Run <code>php artisan db:seed --class=DemoStoreSeeder</code> to seed them.</p>
+                </div>
                 @endforelse
             </div>
         </div>
@@ -517,107 +519,107 @@
         <div class="container">
             <div class="section-head">
                 <span class="section-badge">{{ __('messages.welcome_qr_badge') }}</span>
-                <h2 class="section-title">{{ __('messages.welcome_qr_title') }}</h2>
-                <p class="section-desc">
-                    {{ __('messages.welcome_qr_desc') }}
-                </p>
+    <h2 class="section-title">{{ __('messages.welcome_qr_title') }}</h2>
+    <p class="section-desc">
+        {{ __('messages.welcome_qr_desc') }}
+    </p>
+    </div>
+
+    <div class="qr-showcase-wrap">
+        <div class="qr-styles-grid">
+            <!-- Left: QR Template Switcher -->
+            <div class="qr-selector-list" id="qrTemplateList">
+                @php
+                $templateIcons = [
+                'classic' => 'fa-certificate',
+                'neon' => 'fa-wand-magic-sparkles',
+                'royal' => 'fa-crown',
+                'dotted' => 'fa-circle-dot',
+                'sunburst' => 'fa-sun',
+                'tech' => 'fa-microchip',
+                ];
+                @endphp
+                @foreach ($qrTemplates as $key => $tmpl)
+                <div class="qr-style-option {{ $loop->first ? 'active' : '' }}" data-style="{{ $key }}" data-name="{{ $tmpl['name'] }}" data-desc="{{ $tmpl['description'] }}">
+                    <div class="qr-opt-info">
+                        <div class="qr-opt-icon">
+                            <i class="fa-solid {{ $templateIcons[$key] ?? 'fa-qrcode' }}"></i>
+                        </div>
+                        <div>
+                            <div class="qr-opt-name">{{ $tmpl['name'] }}</div>
+                            <div class="qr-opt-desc">{{ $tmpl['description'] }}</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-muted"></i>
+                </div>
+                @endforeach
             </div>
 
-            <div class="qr-showcase-wrap">
-                <div class="qr-styles-grid">
-                    <!-- Left: QR Template Switcher -->
-                    <div class="qr-selector-list" id="qrTemplateList">
-                        @php
-                            $templateIcons = [
-                                'classic' => 'fa-certificate',
-                                'neon' => 'fa-wand-magic-sparkles',
-                                'royal' => 'fa-crown',
-                                'dotted' => 'fa-circle-dot',
-                                'sunburst' => 'fa-sun',
-                                'tech' => 'fa-microchip',
-                            ];
-                        @endphp
-                        @foreach ($qrTemplates as $key => $tmpl)
-                            <div class="qr-style-option {{ $loop->first ? 'active' : '' }}" data-style="{{ $key }}" data-name="{{ $tmpl['name'] }}" data-desc="{{ $tmpl['description'] }}">
-                                <div class="qr-opt-info">
-                                    <div class="qr-opt-icon">
-                                        <i class="fa-solid {{ $templateIcons[$key] ?? 'fa-qrcode' }}"></i>
-                                    </div>
-                                    <div>
-                                        <div class="qr-opt-name">{{ $tmpl['name'] }}</div>
-                                        <div class="qr-opt-desc">{{ $tmpl['description'] }}</div>
-                                    </div>
-                                </div>
-                                <i class="fa-solid fa-chevron-right text-muted"></i>
-                            </div>
-                        @endforeach
+            <!-- Right: Acrylic Table Stand Live Mockup -->
+            <div class="qr-mockup-stage">
+                <div class="acrylic-stand" id="acrylicStandMockup">
+                    <div class="stand-store-name" id="standStoreName">Sunrise Cafe</div>
+                    <div class="stand-cta-text" id="standStyleLabel">Classic Clean Design</div>
+
+                    <div class="stand-qr-box" id="standQrBox">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+                            <!-- Stylized QR Code Graphic -->
+                            <rect width="100" height="100" fill="#ffffff" />
+                            <rect x="10" y="10" width="26" height="26" fill="#141655" rx="4" />
+                            <rect x="15" y="15" width="16" height="16" fill="#ffffff" rx="2" />
+                            <rect x="19" y="19" width="8" height="8" fill="#6868AC" rx="1" />
+
+                            <rect x="64" y="10" width="26" height="26" fill="#141655" rx="4" />
+                            <rect x="69" y="15" width="16" height="16" fill="#ffffff" rx="2" />
+                            <rect x="73" y="19" width="8" height="8" fill="#6868AC" rx="1" />
+
+                            <rect x="10" y="64" width="26" height="26" fill="#141655" rx="4" />
+                            <rect x="15" y="69" width="16" height="16" fill="#ffffff" rx="2" />
+                            <rect x="19" y="73" width="8" height="8" fill="#6868AC" rx="1" />
+
+                            <!-- QR Pattern Pixels -->
+                            <rect x="42" y="12" width="6" height="6" fill="#141655" />
+                            <rect x="52" y="12" width="6" height="6" fill="#6868AC" />
+                            <rect x="42" y="24" width="6" height="6" fill="#141655" />
+                            <rect x="42" y="36" width="6" height="6" fill="#6868AC" />
+                            <rect x="52" y="36" width="6" height="6" fill="#141655" />
+                            <rect x="12" y="44" width="6" height="6" fill="#141655" />
+                            <rect x="24" y="44" width="6" height="6" fill="#6868AC" />
+                            <rect x="64" y="44" width="6" height="6" fill="#141655" />
+                            <rect x="76" y="44" width="6" height="6" fill="#6868AC" />
+                            <rect x="44" y="52" width="6" height="6" fill="#141655" />
+                            <rect x="56" y="52" width="6" height="6" fill="#6868AC" />
+                            <rect x="44" y="64" width="6" height="6" fill="#6868AC" />
+                            <rect x="56" y="64" width="6" height="6" fill="#141655" />
+                            <rect x="72" y="64" width="6" height="6" fill="#141655" />
+                            <rect x="84" y="64" width="6" height="6" fill="#6868AC" />
+                            <rect x="44" y="76" width="6" height="6" fill="#141655" />
+                            <rect x="64" y="76" width="6" height="6" fill="#6868AC" />
+                            <rect x="80" y="80" width="8" height="8" fill="#141655" />
+                        </svg>
                     </div>
 
-                    <!-- Right: Acrylic Table Stand Live Mockup -->
-                    <div class="qr-mockup-stage">
-                        <div class="acrylic-stand" id="acrylicStandMockup">
-                            <div class="stand-store-name" id="standStoreName">Sunrise Cafe</div>
-                            <div class="stand-cta-text" id="standStyleLabel">Classic Clean Design</div>
-
-                            <div class="stand-qr-box" id="standQrBox">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
-                                    <!-- Stylized QR Code Graphic -->
-                                    <rect width="100" height="100" fill="#ffffff"/>
-                                    <rect x="10" y="10" width="26" height="26" fill="#141655" rx="4"/>
-                                    <rect x="15" y="15" width="16" height="16" fill="#ffffff" rx="2"/>
-                                    <rect x="19" y="19" width="8" height="8" fill="#6868AC" rx="1"/>
-
-                                    <rect x="64" y="10" width="26" height="26" fill="#141655" rx="4"/>
-                                    <rect x="69" y="15" width="16" height="16" fill="#ffffff" rx="2"/>
-                                    <rect x="73" y="19" width="8" height="8" fill="#6868AC" rx="1"/>
-
-                                    <rect x="10" y="64" width="26" height="26" fill="#141655" rx="4"/>
-                                    <rect x="15" y="69" width="16" height="16" fill="#ffffff" rx="2"/>
-                                    <rect x="19" y="73" width="8" height="8" fill="#6868AC" rx="1"/>
-
-                                    <!-- QR Pattern Pixels -->
-                                    <rect x="42" y="12" width="6" height="6" fill="#141655"/>
-                                    <rect x="52" y="12" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="42" y="24" width="6" height="6" fill="#141655"/>
-                                    <rect x="42" y="36" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="52" y="36" width="6" height="6" fill="#141655"/>
-                                    <rect x="12" y="44" width="6" height="6" fill="#141655"/>
-                                    <rect x="24" y="44" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="64" y="44" width="6" height="6" fill="#141655"/>
-                                    <rect x="76" y="44" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="44" y="52" width="6" height="6" fill="#141655"/>
-                                    <rect x="56" y="52" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="44" y="64" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="56" y="64" width="6" height="6" fill="#141655"/>
-                                    <rect x="72" y="64" width="6" height="6" fill="#141655"/>
-                                    <rect x="84" y="64" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="44" y="76" width="6" height="6" fill="#141655"/>
-                                    <rect x="64" y="76" width="6" height="6" fill="#6868AC"/>
-                                    <rect x="80" y="80" width="8" height="8" fill="#141655"/>
-                                </svg>
-                            </div>
-
-                            <div class="stand-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-                            <div class="stand-footnote">{{ __('messages.welcome_qr_footnote') }}</div>
-                        </div>
-                        <div class="acrylic-stand-base"></div>
-
-                        <div class="mt-4 text-center">
-                            <a href="{{ route('login') }}" class="btn btn-navy btn-sm">
-                                <i class="fa-solid fa-download"></i>
-                                <span>{{ __('messages.welcome_qr_download') }}</span>
-                            </a>
-                        </div>
+                    <div class="stand-stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
                     </div>
+                    <div class="stand-footnote">{{ __('messages.welcome_qr_footnote') }}</div>
+                </div>
+                <div class="acrylic-stand-base"></div>
+
+                <div class="mt-4 text-center">
+                    <a href="{{ route('login') }}" class="btn btn-navy btn-sm">
+                        <i class="fa-solid fa-download"></i>
+                        <span>{{ __('messages.welcome_qr_download') }}</span>
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </section>
     --}}
 
@@ -750,9 +752,9 @@
                     </ul>
 
                     @auth
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-primary w-100">{{ __('messages.welcome_current_plan') }}</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-primary w-100">{{ __('messages.welcome_current_plan') }}</a>
                     @else
-                        <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">{{ __('messages.welcome_start_free') }}</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">{{ __('messages.welcome_start_free') }}</a>
                     @endauth
                 </div>
 
@@ -795,12 +797,12 @@
                     </ul>
 
                     @auth
-                        <a href="{{ route('billing.index') }}" class="btn btn-primary w-100">{{ __('messages.welcome_upgrade_pro') }}</a>
+                    <a href="{{ route('billing.index') }}" class="btn btn-primary w-100">{{ __('messages.welcome_upgrade_pro') }}</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-primary w-100">
-                            <i class="fa-solid fa-key"></i>
-                            <span>{{ __('messages.welcome_login_subscribe') }}</span>
-                        </a>
+                    <a href="{{ route('login') }}" class="btn btn-primary w-100">
+                        <i class="fa-solid fa-key"></i>
+                        <span>{{ __('messages.welcome_login_subscribe') }}</span>
+                    </a>
                     @endauth
                 </div>
 
@@ -842,12 +844,12 @@
                     </ul>
 
                     @auth
-                        <a href="{{ route('billing.index') }}" class="btn btn-outline-primary w-100">{{ __('messages.welcome_select_annual') }}</a>
+                    <a href="{{ route('billing.index') }}" class="btn btn-outline-primary w-100">{{ __('messages.welcome_select_annual') }}</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-primary w-100">
-                            <i class="fa-solid fa-key"></i>
-                            <span>{{ __('messages.welcome_login_subscribe') }}</span>
-                        </a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary w-100">
+                        <i class="fa-solid fa-key"></i>
+                        <span>{{ __('messages.welcome_login_subscribe') }}</span>
+                    </a>
                     @endauth
                 </div>
             </div>
@@ -1011,30 +1013,30 @@
         <div class="container">
             <div class="cta-banner">
                 <h2 class="cta-banner-title">{{ __('messages.welcome_cta_title') }}</h2>
-                <p class="cta-banner-desc">
-                    {{ __('messages.welcome_cta_desc') }}
-                </p>
-                <div class="cta-banner-buttons">
-                    @auth
-                        <a href="{{ auth()->user()->isSuperAdmin() ? route('superadmin.dashboard') : route('dashboard') }}" class="btn btn-primary btn-lg">
-                            <i class="fa-solid fa-gauge-high"></i>
-                            <span>{{ __('messages.welcome_go_admin_dashboard') }}</span>
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-lg">
-                            <i class="fa-solid fa-key"></i>
-                            <span>{{ __('messages.welcome_admin_login_store') }}</span>
-                        </a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-gold btn-lg">
-                                <i class="fa-solid fa-rocket"></i>
-                                <span>{{ __('messages.welcome_register_free') }}</span>
-                            </a>
-                        @endif
-                    @endauth
-                </div>
-            </div>
-        </div>
+    <p class="cta-banner-desc">
+        {{ __('messages.welcome_cta_desc') }}
+    </p>
+    <div class="cta-banner-buttons">
+        @auth
+        <a href="{{ auth()->user()->isSuperAdmin() ? route('superadmin.dashboard') : route('dashboard') }}" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>{{ __('messages.welcome_go_admin_dashboard') }}</span>
+        </a>
+        @else
+        <a href="{{ route('login') }}" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-key"></i>
+            <span>{{ __('messages.welcome_admin_login_store') }}</span>
+        </a>
+        @if (Route::has('register'))
+        <a href="{{ route('register') }}" class="btn btn-gold btn-lg">
+            <i class="fa-solid fa-rocket"></i>
+            <span>{{ __('messages.welcome_register_free') }}</span>
+        </a>
+        @endif
+        @endauth
+    </div>
+    </div>
+    </div>
     </section>
     --}}
 
@@ -1076,10 +1078,10 @@
                     <ul class="footer-links">
                         <li><a href="{{ route('login') }}" class="footer-link"><i class="fa-solid fa-key me-1"></i> {{ __('messages.welcome_admin_login') }}</a></li>
                         @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}" class="footer-link"><i class="fa-solid fa-user-plus me-1"></i> {{ __('messages.welcome_footer_register') }}</a></li>
+                        <li><a href="{{ route('register') }}" class="footer-link"><i class="fa-solid fa-user-plus me-1"></i> {{ __('messages.welcome_footer_register') }}</a></li>
                         @endif
                         @if (Route::has('auth.google'))
-                            <li><a href="{{ route('auth.google') }}" class="footer-link"><i class="fa-brands fa-google me-1"></i> {{ __('messages.welcome_footer_google') }}</a></li>
+                        <li><a href="{{ route('auth.google') }}" class="footer-link"><i class="fa-brands fa-google me-1"></i> {{ __('messages.welcome_footer_google') }}</a></li>
                         @endif
                         <li><a href="#faq" class="footer-link">{{ __('messages.welcome_footer_support') }}</a></li>
                     </ul>
@@ -1129,18 +1131,18 @@
                 </a>
 
                 @if (Route::has('auth.google'))
-                    <a href="{{ route('auth.google') }}" class="login-google-btn">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                        <span>{{ __('messages.welcome_continue_google') }}</span>
-                    </a>
+                <a href="{{ route('auth.google') }}" class="login-google-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                    <span>{{ __('messages.welcome_continue_google') }}</span>
+                </a>
                 @endif
 
                 @if (Route::has('register'))
-                    <div class="login-divider">{{ __('messages.welcome_need_account') }}</div>
-                    <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">
-                        <i class="fa-solid fa-store"></i>
-                        <span>{{ __('messages.welcome_register_new_store') }}</span>
-                    </a>
+                <div class="login-divider">{{ __('messages.welcome_need_account') }}</div>
+                <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">
+                    <i class="fa-solid fa-store"></i>
+                    <span>{{ __('messages.welcome_register_new_store') }}</span>
+                </a>
                 @endif
             </div>
 
@@ -1165,21 +1167,23 @@
          INTERACTIVE JAVASCRIPT LOGIC
          ===================================================================== -->
     @php
-        $welcomeI18n = [
-            'managedBy' => __('messages.welcome_managed_by'),
-            'planActive' => __('messages.welcome_plan_active'),
-            'loginManageNamed' => __('messages.welcome_login_manage_named'),
-            'designSuffix' => __('messages.welcome_qr_design_suffix'),
-        ];
+    $welcomeI18n = [
+    'managedBy' => __('messages.welcome_managed_by'),
+    'planActive' => __('messages.welcome_plan_active'),
+    'loginManageNamed' => __('messages.welcome_login_manage_named'),
+    'designSuffix' => __('messages.welcome_qr_design_suffix'),
+    ];
     @endphp
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const i18n = {!! json_encode($welcomeI18n, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!};
+        document.addEventListener('DOMContentLoaded', function() {
+            const i18n = {
+                !!json_encode($welcomeI18n, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!
+            };
 
             const navToggle = document.getElementById('navToggle');
             const navLinks = document.getElementById('navLinks');
             if (navToggle && navLinks) {
-                navToggle.addEventListener('click', function () {
+                navToggle.addEventListener('click', function() {
                     const open = navLinks.classList.toggle('mobile-open');
                     navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
                     const icon = navToggle.querySelector('i');
@@ -1191,7 +1195,7 @@
 
             // 2. Navbar Scroll Shadow Effect
             const siteNav = document.getElementById('siteNav');
-            window.addEventListener('scroll', function () {
+            window.addEventListener('scroll', function() {
                 if (window.scrollY > 30) {
                     siteNav.classList.add('scrolled');
                 } else {
@@ -1317,4 +1321,5 @@
         });
     </script>
 </body>
+
 </html>

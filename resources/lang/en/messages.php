@@ -476,4 +476,5 @@ return [
     'welcome_test_accounts' => 'Test Accounts',
     'welcome_demo_admin_short' => 'Admin:',
     'welcome_demo_pass_short' => 'Pass:',
+    'demo_sandbox' => 'demo sandbox',
 ];
