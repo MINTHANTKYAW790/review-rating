@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Support\HeaderPlanCue;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +27,8 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('headerPlanCue', $user ? HeaderPlanCue::for($user) : null);
         });
+        if ($this->app->environment('production') || config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
